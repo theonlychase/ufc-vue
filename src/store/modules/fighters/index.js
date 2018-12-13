@@ -69,11 +69,11 @@ const actions = {
             }
 
             if (results.length) {
-                commit('DATA_LOADED');
                 commit('GET_FIGHTER_DATA', results);
-            } else {
                 commit('DATA_LOADED');
+            } else {
                 commit('NO_FIGHTER_DATA');
+                commit('DATA_LOADED');
             }
         } catch (e) {
              commit('NETWORK_ERROR');

@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="columns is-multiline is-mobile" v-else-if="getFighters.length">
-        <div class="column is-one-quarter-fullhd is-one-third-desktop is-one-third-tablet is-full-mobile" v-for="(fighter, i) in getFighters" :key="'fighter' + i">
+        <div class="column is-one-quarter-fullhd is-one-third-desktop is-one-third-tablet is-full-mobile is-flex" v-for="(fighter, i) in getFighters" :key="'fighter' + i">
             <Fighters :fighter="fighter"></Fighters>
         </div>
     </div>
@@ -35,9 +35,9 @@
         name: 'FighterList',
         computed: {
             ...mapGetters([
+                'loading',
                 'getFighters',
                 'noResults',
-                'loading',
                 'error'
             ])
         },

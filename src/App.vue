@@ -47,7 +47,7 @@ export default {
 
 <style>
 #app {
-  font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+  font-family: 'Titillium Web', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -69,6 +69,6 @@ a {
     color: #d20a0a;
 }
 a:hover {
-    color: #8D8D8D;
+    color: #4a4a4a;
 }
 </style>
