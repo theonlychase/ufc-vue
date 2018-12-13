@@ -1,6 +1,6 @@
 <template>
     <div class="columns is-multiline is-mobile events_list">
-        <div class="column is-9-desktop is-8-tablet is-12-mobile">
+        <div class="column is-12-desktop">
             <div v-if="getEvents.length">
                 <h3 class="widget-title">Event Search Results</h3>
                 <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
@@ -23,15 +23,18 @@
             <div v-else-if="noEventResults">
                 <h3>No Event Found. Please search again</h3>
             </div>
+            <div v-else>
+                <h3>Search for an event!</h3>
+            </div>
         </div>
-         <div class="column is-3-desktop is-12-mobile is-4-tablet" v-if="getWidgetEvents.length">
+         <!-- <div class="column is-3-desktop is-12-mobile is-4-tablet" v-if="getWidgetEvents.length">
             <h3 class="widget-title">Upcoming UFC Events</h3>
             <div class="columns is-multiline is-mobile">
                 <div class="column is-half-mobile is-12-tablet" v-for="(widgetevent,i) in getWidgetEvents" :key="'widget' + i">
                     <EventWidget :widgetevent="widgetevent"></EventWidget>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 

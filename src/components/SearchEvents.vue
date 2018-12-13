@@ -2,7 +2,7 @@
    <div class="box">
        <div class="field has-addons">
             <div class="control">
-                <input class="input" type="text" placeholder="Find an Event" v-model="event" :class="{ 'input-error': $v.event.$error }">
+                <input class="input" type="text" placeholder="Find an Event" @keyup.enter="searchEvents(event)" v-model="event" :class="{ 'input-error': $v.event.$error }">
                 <p class="error-text" v-if="!$v.event.valAlphaSpace">Only Accepts Alphabet Characters and/or Numbers</p>
                 <p class="error-text" v-if="submitStatus === 'ERROR'">This Field Is Required</p>
                  <p class="error-text" v-if="minLength === 'ERROR'">A minimum of three characters is required</p>

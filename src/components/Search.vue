@@ -2,7 +2,7 @@
    <div class="box">
        <div class="field has-addons">
             <div class="control">
-                <input class="input" type="text" placeholder="Find a fighter" v-model="fighter" :class="{ 'input-error': $v.fighter.$error }">
+                <input class="input" type="text" placeholder="Find a fighter" @keyup.enter="searchFighter(fighter)" v-model="fighter" :class="{ 'input-error': $v.fighter.$error }">
                 <p class="error-text" v-if="!$v.fighter.valAlphaSpace">Only Accepts Alphabet Characters</p>
                 <p class="error-text" v-if="submitStatus === 'ERROR'">This Field Is equired</p>
             </div>
