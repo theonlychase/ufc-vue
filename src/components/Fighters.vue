@@ -1,8 +1,11 @@
 <template>
         <div class="card hvr-underline-from-center">
             <div class="card-image">
-                <figure class="image is-4by3">
+                <figure class="image is-4by3" v-if="fighter.profile_image">
                     <img :src="fighter.profile_image" alt="Placeholder image">
+                </figure>
+                <figure class="image is-4by3" v-else>
+                    <img src="../assets/fighter_placeholder.png" alt="Placeholder image">
                 </figure>
             </div>
             <div class="card-content">

@@ -22,7 +22,7 @@
         if (typeof value === 'undefined' || value === null || value === '') {
             return true
         }
-        return /^(?:[A-Za-z0-9]+)(?:[A-Za-z0-9 _]*)$/.test(value);
+        return /^(?:[A-Za-z0-9]+)(?:[A-Za-z0-9 _\.]*)$/.test(value);
     };
 
     export default {

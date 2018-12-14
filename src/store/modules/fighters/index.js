@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 const state = {
     fighter: [],
+    fighterStats: [],
     noResults: false,
     loading: false, 
     error: false
@@ -79,11 +80,18 @@ const actions = {
              commit('NETWORK_ERROR');
              console.error("Error", e);
         }
-    }    
+    },
+    async getFighterStats({ commit }, data) {
+
+        const fighterStats = await axios(`https://cors-anywhere.herokuapp.com/http://ufc-data-api.ufc.com/api/v3/iphone/fighters/${data}`);
+        const fighter = fighterStats.data;
+
+    }
 };
 
 const getters = {
     getFighters: state => state.fighter,
+    fighterStats: state => state.fighterStats,
     noResults: state => state.noResults,
     loading: state => state.loading,
     error: state => state.error

@@ -2,11 +2,11 @@
     <tr>
         <td>
             <div class="event_widget-info">
-                <div class="event_widget-img" >
-                    <figure class="image image is-32x32" v-if="event.feature_image">
+                <div class="event_widget-img">
+                    <figure class="image is-32x32" v-if="event.feature_image">
                         <img :src="event.feature_image" alt="Placeholder image">
                     </figure>
-                    <figure class="image is-4by3" v-else>
+                    <figure class="image is-32x32" v-else>
                         <img src="../assets/ufc_placeholder.jpg" alt="Placeholder image">
                     </figure>
                 </div>

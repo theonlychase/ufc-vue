@@ -8,15 +8,21 @@
                 <div class="column is-4-desktop is-6-tablet is-12-mobile is-flex" v-for="(fight,i) in getFightsData" :key="'fight' + i">
                     <div class="columns is-multiline is-mobile box">
                         <div class="column is-6-desktop">
-                            <figure class="image is-4by3">
+                            <figure class="image is-4by3" v-if="fight.fighter1_profile_image">
                                 <img :src="fight.fighter1_profile_image" alt="Placeholder image">
+                            </figure>
+                            <figure class="image is-4by3" v-else>
+                                <img src="../assets/fighter_placeholder.png" alt="Placeholder image">
                             </figure>
                             <p class="subtitle is-6 nickname" v-if="fight.fighter1_nickname">"{{ fight.fighter1_nickname | trim }}"</p>
                             <p class="title is-6">{{ fight.fighter1_first_name }} {{ fight.fighter1_last_name }}</p>
                         </div>
                         <div class="column is-6-desktop">
-                            <figure class="image is-4by3">
+                            <figure class="image is-4by3" v-if="fight.fighter2_profile_image">
                                 <img :src="fight.fighter2_profile_image" alt="Placeholder image">
+                            </figure>
+                            <figure class="image is-4by3" v-else>
+                                <img src="../assets/fighter_placeholder.png" alt="Placeholder image">
                             </figure>
                             <p class="subtitle is-6 nickname" v-if="fight.fighter2_nickname">"{{ fight.fighter2_nickname | trim }}"</p>
                             <p class="title is-6">{{ fight.fighter2_first_name }} {{ fight.fighter2_last_name }}</p>
