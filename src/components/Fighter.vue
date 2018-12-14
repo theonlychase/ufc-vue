@@ -2,7 +2,7 @@
     <div class="columns is-multiline is-mobile">
         <div class="column is-12-desktop">
             <h3>Fighter Info Coming Soon</h3>
-            <iframe :src="`http://ufc-data-api.ufc.com/api/v1/us/fighters/${id}`"></iframe>
+            <iframe :src="`https://ufc-data-api.ufc.com/api/v1/us/fighters/${id}`"></iframe>
         </div>
     </div>
 </template>
