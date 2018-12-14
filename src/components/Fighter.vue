@@ -1,5 +1,5 @@
 <template>
-    <p>Fighter Info here</p>
+    <h3>Fighter Info Coming Soon</h3>
 </template>
 
 <script>

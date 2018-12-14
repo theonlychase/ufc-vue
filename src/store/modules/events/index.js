@@ -85,10 +85,14 @@ const actions = {
     async searchEvents({ commit }, data) {
         try {
             commit('LOAD_EVENTS');
+            // Makes an array with each search term split, then lowercases each
             let dataArr = data.split(" ").map(data => data.toLowerCase());
+            // If only one word was searched, then its lowercased
             let dataStr = data.toLowerCase();
             let results = [];
             const eventData = await axios('https://cors-anywhere.herokuapp.com/http://ufc-data-api.ufc.com/api/v3/iphone/events');
+
+            // Gets event data an lowercases anything data that is: 1.String 2.less than 30 characters (bc of URL strings), if not, returns original data
             const events = await eventData.data.map((obj, index, arr) => {
                 return _.mapValues(obj, function(s) { 
                     return _.isString(s) ? (s.length < 30 ? s.toLowerCase() : s) : s; 
@@ -97,6 +101,7 @@ const actions = {
 
             for (let i = 0; i < events.length; i++) {
                 for (let key in events[i]) {
+                    // If this symbol exists, remove it
                     if (_.includes(events[i][key], '®')) {
                         events[i][key] = events[i][key].replace('®', '');
                         events[i][key] = events[i][key].replace(/\s+$/, '');
@@ -109,8 +114,9 @@ const actions = {
                                 let final = locArr.join(" ");
                                 events[i][key] = final;
                             }
-                            results.push(events[i]);
-                        } else if (_.includes(events[i][key], `,`)) {
+                            // results.push(events[i]);
+                        } 
+                        if (_.includes(events[i][key], `,`)) {
                             let locArr = events[i][key].split(" ");
                             if (locArr[locArr.length - 1].length === 2) {
                                 locArr[locArr.length - 1] = locArr[locArr.length - 1].toUpperCase();
@@ -119,33 +125,49 @@ const actions = {
                             }
                         }
                         events[i][key] = events[i][key].replace(/\s+$/, '');
+                        if (key === "base_title") { 
+                            const terms = events[i][key].split(' ');
+                            const doubles = terms.filter((element) => {
+                                return dataArr.every(function(e) {
+                                    return element.toLowerCase().indexOf(e.toLowerCase()) !== -1;
+                                })
+                            })
+                            if (doubles.length > 1) {
+                                results.push(events[i]);
+                            }
+                        }
                         if (dataStr === events[i][key]) {
                             results.push(events[i]);
-                        } 
+                        }
                     }
                 }
             }
 
-            if (results.length === 0) {
+            if (results.length === 1) {
+                console.log("1 match");
+            } else if (results.length === 0) {
                 for (let i = 0; i < events.length; i++) {
                     for (let key in events[i]) {
                         if (key === "base_title" || key === "location") {
-                            if (_.includes(events[i][key], `,`)) {
-                                let locArr = events[i][key].split(" ");
-                                if (locArr[locArr.length - 1].length === 2) {
-                                    locArr[locArr.length - 1] = locArr[locArr.length - 1].toUpperCase();
-                                    let final = locArr.join(" ");
-                                    events[i][key] = final;
-                                }
-                            }
-                            if (_.includes(events[i][key], dataArr)) {
+                            // if (_.includes(events[i][key], `,`)) {
+                            //     let locArr = events[i][key].split(" ");
+                            //     if (locArr[locArr.length - 1].length === 2) {
+                            //         locArr[locArr.length - 1] = locArr[locArr.length - 1].toUpperCase();
+                            //         let final = locArr.join(" ");
+                            //         events[i][key] = final;
+                            //     }
+                            // }
+                            // if (_.includes(events[i][key], dataArr)) {
+                            //     results.push(events[i]);
+                            // }
+                            if (events[i][key].includes(dataStr)) {
                                 results.push(events[i]);
                             }
                         }
                     }
                 }
             }
-            console.log("results", results);
+
             if (results.length) {
                 commit('GET_EVENT_DATA', results);
                 commit('LOAD_EVENTS_SUCCESS');
