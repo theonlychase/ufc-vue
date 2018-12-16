@@ -1,8 +1,11 @@
 <template>
     <div class="columns is-multiline is-mobile events_list">
         <div class="column is-12-desktop">
-            <div v-if="getEvents.length">
-                <h3 class="widget-title">Event Search Results</h3>
+            <div v-if="loadEvents">
+                <Loading></Loading>
+            </div>
+            <div v-else-if="getEvents.length">
+                <h3 class="widget-title">UFC Event Search Results</h3>
                 <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                     <thead>
                         <tr>
@@ -15,12 +18,12 @@
                         <Events :event="event"></Events>
                     </tbody>
                 </table>
-                <a v-if="getPageNumber == 0" disabled class="button is-small">Prev</a>
-                <a v-else @click="getPrevPage" class="button is-small">Prev</a>
-                <a v-if="getPageNumber > nextPageCount - 1" :disabled="getPageNumber > nextPageCount - 1" class="button is-small">Next</a>
-                <a v-else @click="getNextPage" class="button is-small">Next</a>
+                <a v-if="getPageNumber == 0" disabled class="button is-small prev"><span class="icon"><i class="fas fa-arrow-left"></i></span> Prev</a>
+                <a v-else @click="getPrevPage" class="button is-small prev"><span class="icon"><i class="fas fa-arrow-left"></i></span> Prev</a>
+                <a v-if="getPageNumber > nextPageCount - 1" :disabled="getPageNumber > nextPageCount - 1" class="button is-small next">Next <span class="icon"><i class="fas fa-arrow-right"></i></span></a>
+                <a v-else @click="getNextPage" class="button is-small next">Next <span class="icon"><i class="fas fa-arrow-right"></i></span></a>
             </div>
-            <div v-else-if="noEventResults">
+            <div v-else-if="eventError">
                 <h3>No Event Found. Please search again</h3>
             </div>
             <div v-else>
@@ -58,11 +61,12 @@
             ...mapGetters([
                 'getEvents',
                 'getWidgetEvents',
-                'isLoading',
+                'loadEvents',
                 'noEventResults',
                 'getPageNumber',
                 'nextPageCount',
-                'paginatedData'
+                'paginatedData',
+                'eventError'
             ])
         },
         methods: {
@@ -93,5 +97,34 @@
     }
     .events_list .card-content {
         padding: 1rem;
+    }
+    .prev {
+        margin-right: 3px;
+    }
+    .prev, .next {
+        background-color: #d20a0a;
+        color: #fff;
+        border-color: transparent;
+    }
+    .button.prev[disabled], .button.next[disabled]  {
+        background-color: #d20a0a;
+        border-color: transparent;
+    }
+    .prev:hover, .next:hover {
+        background-color: #bf0909;
+        border-color: transparent;
+        color: #fff;
+    }
+    .next span {
+        margin-left: 2px !important;
+    }
+    .next span i {
+        font-size: 10px;
+    }
+    .prev span {
+        margin-right: 2px !important;
+    }
+    .prev span i {
+        font-size: 10px;
     }
 </style>

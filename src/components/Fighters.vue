@@ -43,42 +43,4 @@
         font-weight: 300;
         font-size: 13px;
     }
-    [class^="hvr-"] {
-        margin: .4em;
-        padding: 1em;
-        cursor: pointer;
-        background: #e1e1e1;
-        text-decoration: none;
-        color: #666;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-    .hvr-underline-from-center {
-        vertical-align: middle;
-        -webkit-transform: perspective(1px) translateZ(0);
-        transform: perspective(1px) translateZ(0);
-        position: relative;
-        overflow: hidden;
-    }
-    .hvr-underline-from-center:hover:before, .hvr-underline-from-center:focus:before, .hvr-underline-from-center:active:before {
-        left: 0;
-        right: 0;
-    }
-    .hvr-underline-from-center:before {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        left: 51%;
-        right: 51%;
-        bottom: 0;
-        background: #d20a0a;
-        height: 4px;
-        -webkit-transition-property: left, right;
-        transition-property: left, right;
-        -webkit-transition-duration: 0.3s;
-        transition-duration: 0.3s;
-        -webkit-transition-timing-function: ease-out;
-        transition-timing-function: ease-out;
-    }
 </style>

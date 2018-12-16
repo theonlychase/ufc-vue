@@ -15,9 +15,9 @@
 
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-start">
-                    <router-link to="/" class="navbar-item">Home</router-link>
-                    <router-link to="/fighters" class="navbar-item">Fighters</router-link>
-                    <router-link to="/events" class="navbar-item">Events</router-link>
+                    <router-link to="/" @click.native="closeMenu" class="navbar-item">Home</router-link>
+                    <router-link to="/fighters" @click.native="closeMenu" class="navbar-item">Fighters</router-link>
+                    <router-link to="/events" @click.native="closeMenu" class="navbar-item">Events</router-link>
                     <!-- <a class="navbar-item">Documentation</a>
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">More</a>
@@ -49,7 +49,7 @@
     name: 'Header',
     methods: {
         toggleMenu() {
-            // Get all "navbar-burger" elements
+                // Get all "navbar-burger" elements
                 const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
                 if ($navbarBurgers.length > 0) {
 
@@ -66,7 +66,17 @@
 
                 });
             }
+        },
+        closeMenu() {
+            document.querySelector('.navbar-burger').classList.remove('is-active');
+            document.querySelector('.navbar-menu').classList.remove('is-active');
         }
     }
 }
 </script>
+
+<style>
+    a.navbar-burger, a.navbar-burger:hover {
+        color: #fff !important;
+    }
+</style>

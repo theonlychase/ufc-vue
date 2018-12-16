@@ -6,28 +6,51 @@
         <div class="column is-12-desktop" v-else-if="getFightsData.length">
             <div class="columns is-multiline is-mobile">
                 <div class="column is-4-desktop is-6-tablet is-12-mobile is-flex" v-for="(fight,i) in getFightsData" :key="'fight' + i">
-                    <div class="columns is-multiline is-mobile box">
+                    <div class="columns is-multiline is-mobile box hvr-underline-from-center">
                         <div class="column is-6-desktop">
-                            <figure class="image is-4by3" v-if="fight.fighter1_profile_image">
-                                <img :src="fight.fighter1_profile_image" alt="Placeholder image">
+                            <figure class="image fighter_img" v-if="fight.fighter1_full_body_image">
+                                <img :src="fight.fighter1_full_body_image" alt="Placeholder image">
                             </figure>
-                            <figure class="image is-4by3" v-else>
-                                <img src="../assets/fighter_placeholder.png" alt="Placeholder image">
+                            <figure class="image fighter_img" v-else>
+                                <img src="../assets/shadow_fighter_full.png" alt="Placeholder image">
                             </figure>
                             <p class="subtitle is-6 nickname" v-if="fight.fighter1_nickname">"{{ fight.fighter1_nickname | trim }}"</p>
+                            <p class="subtitle is-6 no-nickname" v-else></p>
                             <p class="title is-6">{{ fight.fighter1_first_name }} {{ fight.fighter1_last_name }}</p>
+                            <p class="subtitle is-6 record">{{ fight.fighter1_wins }}-{{ fight.fighter1_losses }}-{{ fight.fighter1_draws }}</p>
+                            <p class="title is-6 winner" v-if="fight.fighter1_is_winner"><span>WIN</span></p>
                         </div>
                         <div class="column is-6-desktop">
-                            <figure class="image is-4by3" v-if="fight.fighter2_profile_image">
-                                <img :src="fight.fighter2_profile_image" alt="Placeholder image">
+                            <figure class="image fighter_img" v-if="fight.fighter2_full_body_image">
+                                <img :src="fight.fighter2_full_body_image" alt="Placeholder image">
                             </figure>
-                            <figure class="image is-4by3" v-else>
-                                <img src="../assets/fighter_placeholder.png" alt="Placeholder image">
+                            <figure class="image fighter_img" v-else>
+                                <img src="../assets/shadow_fighter_full_2.png" alt="Placeholder image">
                             </figure>
                             <p class="subtitle is-6 nickname" v-if="fight.fighter2_nickname">"{{ fight.fighter2_nickname | trim }}"</p>
+                            <p class="subtitle is-6 no-nickname" v-else></p>
                             <p class="title is-6">{{ fight.fighter2_first_name }} {{ fight.fighter2_last_name }}</p>
+                            <p class="subtitle is-6 record">{{ fight.fighter2_wins }}-{{ fight.fighter2_losses }}-{{ fight.fighter2_draws }}</p>
+                            <p class="title is-6 winner" v-if="fight.fighter2_is_winner"><span>WIN</span></p>
                         </div>
                         <div class="column is-12 fighter_stats">
+                            <div class="columns is-multiline is-mobile">
+                                <div class="column is-12">
+                                    <p class="method">{{ fight.result.Method }}</p>
+                                    <p class="finish" v-if="fight.result.EndStrike">{{ fight.result.EndStrike }}</p>
+                                    <p class="finish" v-else-if="fight.result.Submission">{{ fight.result.Submission }}</p>
+                                </div>
+                                <div class="column is-6">
+                                    <p class="round">Round</p>
+                                    <span>{{ fight.result.EndingRound }}</span>
+                                </div>
+                                <div class="column is-6">
+                                    <p class="time">Time</p>
+                                    <span>{{ fight.result.EndingTime }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="column is-12 fighter_stats">
                             <div class="columns is-multiline is-mobile">
                                 <div class="column is-4">
                                     <span>{{ fight.fighter1_wins }} - {{ fight.fighter1_losses }} - {{ fight.fighter1_draws }}</span>
@@ -189,10 +212,13 @@
                                     <span>{{ fight.fighter2_takedowndefense }}</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="column is-12-desktop" v-else-if="fightsError">
+            <h3>No Event Found. Please search again</h3>
         </div>
     </div>
 </template>
@@ -225,7 +251,8 @@
             ...mapGetters([
                 'getEvent',
                 'getFightsData',
-                'fightsLoading'
+                'fightsLoading',
+                'fightsError'
             ])
             // getEvent() {
             //     return this.$store.getters.getEvent(Number(this.id));
@@ -243,9 +270,6 @@
 </script>
 
 <style>
-    /* .fight_container {
-        margin: 0 auto;
-    } */
     .m-r {
         margin-right: 5px;
     }
@@ -267,5 +291,38 @@
     }
     .is-flex .box {
         width: 100%;
+    }
+    .box {
+        border-radius: 0;
+    }
+    .record, .weight_class {
+        font-weight: 300;
+        font-size: 13px !important;
+        padding-top: 3px;
+    }
+    .no-nickname {
+        padding: 8px 0;
+    }
+    .fighter_img img {
+        width: 106px;
+        height: 318px;
+        margin: 0 auto;
+    }
+    .winner {
+        color: #fff;
+        padding-top: 5px;
+    }
+    .winner span {
+        color: #fff;
+        font-size: 13px !important;
+        background: #d20a0a;
+        padding: 0 8px;
+    }
+    .method, .round, .time {
+        font-weight: 700;
+    }
+    .finish {
+        font-size: 13px !important;
+        font-weight: 700;
     }
 </style>

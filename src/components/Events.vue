@@ -62,4 +62,12 @@
         display: flex;
         align-items: center;
     }
+    @media screen and (max-width:500px) {
+        .event_widget-info .title.is-6, .event_date .subtitle.is-6, .event_location p {
+            font-size: .75rem;
+        }
+        .event_date .subtitle.is-6 {
+            white-space: nowrap;
+        }
+    }
 </style>

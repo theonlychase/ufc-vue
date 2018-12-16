@@ -8,7 +8,8 @@ const state = {
     widgetevents: [],
     loadWidgets: false,
     loadEvents: false, 
-    pageNumber: 0
+    pageNumber: 0,
+    eventError: false
 };
 
 const mutations = {
@@ -41,6 +42,10 @@ const mutations = {
     }, 
     PREV_PAGE (state) {
         state.pageNumber = state.pageNumber - 1;
+    },
+    EVENT_ERROR (state) {
+        state.loadEvents = false;
+        state.eventError = true;
     }
 };
 
@@ -144,7 +149,7 @@ const actions = {
             }
 
             if (results.length === 1) {
-                console.log("1 match");
+                console.log("1 match", results);
             } else if (results.length === 0) {
                 for (let i = 0; i < events.length; i++) {
                     for (let key in events[i]) {
@@ -176,6 +181,7 @@ const actions = {
                 commit('LOAD_EVENTS_SUCCESS');
             }
         } catch (e) {
+            commit('EVENT_ERROR');
             console.error("Error", e);
         }
     },
@@ -215,7 +221,8 @@ const getters = {
               end = start + 10;
         const events = state.events;
         return events.slice(start, end);
-    }
+    },
+    eventError: state => state.eventError
 };
 
 const eventsModule = {

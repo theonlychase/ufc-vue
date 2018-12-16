@@ -32,7 +32,7 @@ const router = new VueRouter({
                         }
                     }
                 }
-                if (!ids.includes(Number(id))) next('/not-found');
+                if (!ids.includes(Number(id))) next('/fighters/not-found');
                 else next();
             }
         },
@@ -41,30 +41,39 @@ const router = new VueRouter({
             component: FighterList
         },
         {
+            path: '/fighters/not-found',
+            name: 'fighternotfound',
+            component: NotFound
+        },
+        {
             path: '/events',
             name: 'eventslist',
             component: EventsList
         },
         {
+            path: '/events/not-found',
+            name: 'eventnotfound',
+            component: NotFound
+        },
+        {
             path:'/events/:id',
             name: 'event',
             component: Event,
-            props: true
-            // beforeEnter: (to, from, next) => {
-            //     const id = to.params.id;
-            //     console.log("store.state.widgetevents.widgetevents", store.state.events.widgetevents);
-            //     const currState = store.state.events.widgetevents;
-            //     const ids = [];
-            //     for (var i = 0; i < currState.length; i++) {
-            //         for (var key in currState[i]) {
-            //             if (currState[i][key] == id) {
-            //                 ids.push(currState[i][key]);
-            //             }
-            //         }
-            //     }
-            //     if (!ids.includes(Number(id))) next('/not-found');
-            //     else next();
-            // }
+            props: true,
+            beforeEnter: (to, from, next) => {
+                const id = to.params.id;
+                const currState = store.state.events.events;
+                const ids = [];
+                for (var i = 0; i < currState.length; i++) {
+                    for (var key in currState[i]) {
+                        if (currState[i][key] == id) {
+                            ids.push(currState[i][key]);
+                        }
+                    }
+                }
+                if (!ids.includes(Number(id))) next('/events/not-found');
+                else next();
+            }
         },
         {
             path: '*',

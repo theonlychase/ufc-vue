@@ -16,7 +16,7 @@
     </div>
     <div class="columns is-multiline is-mobile" v-else-if="error">
         <div class="column is-12">
-            <h3>Network Error! Sorry about that. Please try again!</h3>
+            <h3>Error Connecting to API. Please try again!</h3>
         </div>
     </div>
     <div class="columns is-multiline is-mobile" v-else>

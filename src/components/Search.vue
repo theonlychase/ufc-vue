@@ -4,7 +4,7 @@
             <div class="control">
                 <input class="input" type="text" placeholder="Find a fighter" @keyup.enter="searchFighter(fighter)" v-model="fighter" :class="{ 'input-error': $v.fighter.$error }">
                 <p class="error-text" v-if="!$v.fighter.valAlphaSpace">Only Accepts Alphabet Characters</p>
-                <p class="error-text" v-if="submitStatus === 'ERROR'">This Field Is equired</p>
+                <p class="error-text" v-if="submitStatus === 'ERROR'">This Field Is Required</p>
             </div>
             <div class="control">
                 <a class="button is-info" @click="searchFighter(fighter)">Search</a>

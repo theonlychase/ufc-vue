@@ -69,6 +69,7 @@ const actions = {
                 }
             }
 
+            console.log("fighters", results);
             if (results.length) {
                 commit('GET_FIGHTER_DATA', results);
                 commit('DATA_LOADED');

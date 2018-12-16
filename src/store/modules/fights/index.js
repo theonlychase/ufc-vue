@@ -3,7 +3,8 @@ import _ from 'lodash';
 
 const state = {
     fights: [],
-    loading: false
+    loading: false,
+    fightsError: false
 };
 
 const mutations = {
@@ -15,6 +16,10 @@ const mutations = {
     },
     DATA_LOADED(state) {
         state.loading = false;
+    },
+    FIGHTS_ERROR(state) {
+        state.loading = false;
+        state.fightsError = true;
     }
 };
 
@@ -32,14 +37,16 @@ const actions = {
                 commit('GET_FIGHT_DATA', fights);
             }
        } catch(e) {
+            commit('FIGHTS_ERROR');
             console.error(e);
        }
    }
 };
 
 const getters = {
-    getFightsData : state => state.fights,
-    fightsLoading: state => state.loading
+    getFightsData: state => state.fights,
+    fightsLoading: state => state.loading,
+    fightsError: state => state.fightsError
 };
 
 const fightsModule = {
