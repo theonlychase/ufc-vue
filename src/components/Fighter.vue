@@ -1,8 +1,16 @@
 <template>
-    <div class="columns is-multiline is-mobile">
-        <div class="column is-12-desktop">
-            <h3>Fighter Info Coming Soon</h3>
-            <!-- <iframe :src="`https://ufc-data-api.ufc.com/api/v1/us/fighters/${id}`"></iframe> -->
+    <div>
+        <div v-if="loadMedia">
+            <Loading></Loading>
+        </div>
+        <div class="grid-container" v-else-if="fighterMedia.length">
+            <!-- <div class="" v-for="(media,i) in fighterMedia" :key="'media' + i"> -->
+            <div class="grid-item" v-for="(media,i) in fighterMedia" :key="'media' + i">
+                <img :src="media.thumbnail" alt="">
+            </div>
+        </div>
+        <div class="grid-container" v-else>
+            <h3>Please Search Again</h3>
         </div>
     </div>
 </template>
@@ -14,20 +22,24 @@
     export default {
         name: 'Fighter',
         created() {
-            this.getFighterStats(this.id)
+            this.getFighterMedia(this.id)
         },
         watch: {
-            '$route': 'getFighterStats'
+            '$route': 'getFighterMedia'
         },
         props: ['id'],
         computed: {
             ...mapGetters([
-                'fighterStats',
+                'fighterMedia',
+                'loadMedia'
             ])
+            // getFighter() {
+            //     return this.$store.getters.getFighter(Number(this.id));
+            // }
         },
         methods: {
             ...mapActions([
-                'getFighterStats'
+                'getFighterMedia'
             ])
         },
         components: {
@@ -37,5 +49,9 @@
 </script>
 
 <style>
-
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-gap: 20px;
+    }
 </style>

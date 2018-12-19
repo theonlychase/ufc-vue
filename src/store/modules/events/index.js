@@ -200,8 +200,11 @@ const getters = {
     isLoading: state => state.loadWidgets,
     loadEvents: state => state.loadEvents,
     getEvent: (state) => (id) => {
-        const combineEventState = [...state.events, ...state.widgetevents];
-        return combineEventState.find((event) => {
+        // const combineEventState = [...state.events, ...state.widgetevents];
+        // return combineEventState.find((event) => {
+        //     return event.id === id;
+        // });
+        return state.events.find((event) => {
             return event.id === id;
         });
     },

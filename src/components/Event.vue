@@ -4,6 +4,9 @@
             <Loading></Loading>
         </div>
         <div class="column is-12-desktop" v-else-if="getFightsData.length">
+            <!-- <div class="column is-12-desktop">
+                <h3 class="title is-4 event_name">{{ getEvent.base_title | upperCase }}</h3>
+            </div> -->
             <div class="columns is-multiline is-mobile">
                 <div class="column is-4-desktop is-6-tablet is-12-mobile is-flex" v-for="(fight,i) in getFightsData" :key="'fight' + i">
                     <div class="columns is-multiline is-mobile box hvr-underline-from-center">
@@ -245,11 +248,14 @@
             trim(value) {
                 if (!value) return "";
                 return value.trim();
+            },
+            upperCase(value) {
+                if (!value) return "";
+                return _.upperCase(value);
             }
         },
         computed: {
             ...mapGetters([
-                'getEvent',
                 'getFightsData',
                 'fightsLoading',
                 'fightsError'
@@ -324,5 +330,8 @@
     .finish {
         font-size: 13px !important;
         font-weight: 700;
+    }
+    .event_name {
+        color: #d20a0a;
     }
 </style>

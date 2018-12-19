@@ -18,11 +18,17 @@ const router = new VueRouter({
             component: Home
         },
         {
+            path: '/fighters/not-found',
+            name: 'fighternotfound',
+            component: NotFound
+        },
+        {
             path: '/fighters/:id',
             component: Fighter,
             props: true,
             beforeEnter: (to, from, next) => {
                 const id = to.params.id;
+                console.log('id', id);
                 const currState = store.state.fighter.fighter;
                 const ids = [];
                 for (var i = 0; i < currState.length; i++) {
@@ -39,11 +45,6 @@ const router = new VueRouter({
         {
             path: '/fighters',
             component: FighterList
-        },
-        {
-            path: '/fighters/not-found',
-            name: 'fighternotfound',
-            component: NotFound
         },
         {
             path: '/events',

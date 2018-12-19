@@ -23,8 +23,11 @@
                 <a v-if="getPageNumber > nextPageCount - 1" :disabled="getPageNumber > nextPageCount - 1" class="button is-small next">Next <span class="icon"><i class="fas fa-arrow-right"></i></span></a>
                 <a v-else @click="getNextPage" class="button is-small next">Next <span class="icon"><i class="fas fa-arrow-right"></i></span></a>
             </div>
-            <div v-else-if="eventError">
+            <div v-else-if="noEventResults">
                 <h3>No Event Found. Please search again</h3>
+            </div>
+             <div v-else-if="eventError">
+                <h3>Error Connecting to API. Please try again!</h3>
             </div>
             <div v-else>
                 <h3>Search for an event!</h3>
