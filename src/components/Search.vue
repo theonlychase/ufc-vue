@@ -51,9 +51,8 @@
                     this.submitStatus = null
                     this.fighter = "";
                     this.$v.$reset();
-                    this.$store.dispatch("searchFighter", fighter).then(() => {
-                        this.$router.push({ path: '/fighters'});
-                    });
+                    this.$router.push({ path: '/fighters'});
+                    this.$store.dispatch("searchFighter", fighter);
                 }
             }
         }

@@ -46,7 +46,21 @@ const actions = {
 const getters = {
     getFightsData: state => state.fights,
     fightsLoading: state => state.loading,
-    fightsError: state => state.fightsError
+    fightsError: state => state.fightsError,
+    getEventFighter1: (state) => (id) => {
+        return state.fights.find((fight) => {
+            if (fight.fighter1_id === id) {
+                return fight.fighter1_id;
+            } 
+        });
+    },
+    getEventFighter2: (state) => (id) => {
+        return state.fights.find((fight) => {
+            if (fight.fighter2_id === id) {
+                return fight.fighter2_id;
+            } 
+        });
+    },
 };
 
 const fightsModule = {

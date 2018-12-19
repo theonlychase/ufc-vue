@@ -4,11 +4,16 @@
             <Loading></Loading>
         </div>
     </div>
-    <div class="columns is-multiline is-mobile" v-else-if="getFighters.length">
-        <div class="column is-one-quarter-fullhd is-one-third-desktop is-one-third-tablet is-full-mobile is-flex" v-for="(fighter, i) in getFighters" :key="'fighter' + i">
+    <div class="grid-container" v-else-if="getFighters.length">
+        <div class="card hvr-underline-from-center" v-for="(fighter, i) in getFighters" :key="'fighter' + i">
             <Fighters :fighter="fighter"></Fighters>
         </div>
     </div>
+    <!-- <div class="columns is-multiline is-mobile" v-else-if="getFighters.length">
+        <div class="column is-one-quarter-fullhd is-one-third-desktop is-one-third-tablet is-full-mobile is-flex" v-for="(fighter, i) in getFighters" :key="'fighter' + i">
+            <Fighters :fighter="fighter"></Fighters>
+        </div>
+    </div> -->
     <div class="columns is-multiline is-mobile" v-else-if="noResults">
         <div class="column is-12">
             <h3>No Fighter Found. Please search again</h3>
@@ -51,5 +56,10 @@
 <style>
     h3 {
         font-size: 20px;
+    }
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-gap: 20px;
     }
 </style>

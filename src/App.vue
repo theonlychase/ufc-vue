@@ -79,6 +79,11 @@ a {
 a:hover {
     color: #4a4a4a;
 }
+.titles {
+    color: #d20a0a;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
 [class^="hvr-"] {
         margin: .4em;
         padding: 1em;

@@ -28,13 +28,20 @@ const router = new VueRouter({
             props: true,
             beforeEnter: (to, from, next) => {
                 const id = to.params.id;
-                console.log('id', id);
-                const currState = store.state.fighter.fighter;
+                const fighterState = store.state.fighter.fighter;
+                const fighterEventState = store.state.fights.fights;
                 const ids = [];
-                for (var i = 0; i < currState.length; i++) {
-                    for (var key in currState[i]) {
-                        if (currState[i][key] == id) {
-                            ids.push(currState[i][key]);
+                for (var i = 0; i < fighterState.length; i++) {
+                    for (var key in fighterState[i]) {
+                        if (fighterState[i][key] == id) {
+                            ids.push(fighterState[i][key]);
+                        }
+                    }
+                }
+                for (var i = 0; i < fighterEventState.length; i++) {
+                    for (var key in fighterEventState[i]) {
+                        if (fighterEventState[i][key] == id) {
+                            ids.push(fighterEventState[i][key]);
                         }
                     }
                 }

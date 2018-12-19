@@ -4,9 +4,9 @@
             <Loading></Loading>
         </div>
         <div class="column is-12-desktop" v-else-if="getFightsData.length">
-            <!-- <div class="column is-12-desktop">
+            <div class="column is-12-desktop" v-if="getEvent">
                 <h3 class="title is-4 event_name">{{ getEvent.base_title | upperCase }}</h3>
-            </div> -->
+            </div>
             <div class="columns is-multiline is-mobile">
                 <div class="column is-4-desktop is-6-tablet is-12-mobile is-flex" v-for="(fight,i) in getFightsData" :key="'fight' + i">
                     <div class="columns is-multiline is-mobile box hvr-underline-from-center">
@@ -19,7 +19,7 @@
                             </figure>
                             <p class="subtitle is-6 nickname" v-if="fight.fighter1_nickname">"{{ fight.fighter1_nickname | trim }}"</p>
                             <p class="subtitle is-6 no-nickname" v-else></p>
-                            <p class="title is-6">{{ fight.fighter1_first_name }} {{ fight.fighter1_last_name }}</p>
+                            <p class="title is-6"><router-link :to="'/fighters/' + fight.fighter1_id">{{ fight.fighter1_first_name }} {{ fight.fighter1_last_name }}</router-link></p>
                             <p class="subtitle is-6 record">{{ fight.fighter1_wins }}-{{ fight.fighter1_losses }}-{{ fight.fighter1_draws }}</p>
                             <p class="title is-6 winner" v-if="fight.fighter1_is_winner"><span>WIN</span></p>
                         </div>
@@ -32,14 +32,14 @@
                             </figure>
                             <p class="subtitle is-6 nickname" v-if="fight.fighter2_nickname">"{{ fight.fighter2_nickname | trim }}"</p>
                             <p class="subtitle is-6 no-nickname" v-else></p>
-                            <p class="title is-6">{{ fight.fighter2_first_name }} {{ fight.fighter2_last_name }}</p>
+                            <p class="title is-6"><router-link :to="'/fighters/' + fight.fighter2_id">{{ fight.fighter2_first_name }} {{ fight.fighter2_last_name }}</router-link></p>
                             <p class="subtitle is-6 record">{{ fight.fighter2_wins }}-{{ fight.fighter2_losses }}-{{ fight.fighter2_draws }}</p>
                             <p class="title is-6 winner" v-if="fight.fighter2_is_winner"><span>WIN</span></p>
                         </div>
-                        <div class="column is-12 fighter_stats">
+                        <div class="column is-12 fighter_stats" v-if="fight.result">
                             <div class="columns is-multiline is-mobile">
                                 <div class="column is-12">
-                                    <p class="method">{{ fight.result.Method }}</p>
+                                    <p class="method" v-if="fight.result.Method">{{ fight.result.Method }}</p>
                                     <p class="finish" v-if="fight.result.EndStrike">{{ fight.result.EndStrike }}</p>
                                     <p class="finish" v-else-if="fight.result.Submission">{{ fight.result.Submission }}</p>
                                 </div>
@@ -259,10 +259,10 @@
                 'getFightsData',
                 'fightsLoading',
                 'fightsError'
-            ])
-            // getEvent() {
-            //     return this.$store.getters.getEvent(Number(this.id));
-            // }
+            ]),
+            getEvent() {
+                return this.$store.getters.getEvent(Number(this.id));
+            }
         },
         methods: {
             ...mapActions([

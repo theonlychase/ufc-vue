@@ -22,6 +22,7 @@ const mutations = {
     },
     GET_MEDIA (state, payload) {
         state.fighterMedia = payload;
+        state.noMedia = false;
     },
     NO_MEDIA (state) {
         state.noMedia = true;
@@ -99,12 +100,25 @@ const actions = {
     async getFighterMedia({ commit }, data) {
         try {
             commit('LOADING_MEDIA');
+            let results = [];
             const fighterMedia = await axios(`https://cors-anywhere.herokuapp.com/http://ufc-data-api.ufc.com/api/v3/iphone/fighters/${data}/media`);
-            const media = fighterMedia.data.slice(0, 8);
+            const media = fighterMedia.data;
 
-            console.log("media", media);
-            if (media.length) {
-                commit('GET_MEDIA', media);
+            for (let i = 0; i < media.length; i++) {
+                for (let key in media[i]) {
+                    if (key === "type") {
+                        if (media[i][key] !== "PHOTOGALLERY") {
+                            results.push(media[i]);
+                        } 
+                    }
+                }
+            }
+
+            let finalResults = results.slice(0,8);
+            
+            console.log("media results", finalResults);
+            if (finalResults.length) {
+                commit('GET_MEDIA', finalResults);
                 commit('MEDIA_LOADED');
             } else {
                 commit('NO_MEDIA');
