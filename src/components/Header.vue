@@ -18,6 +18,7 @@
                     <router-link to="/" @click.native="closeMenu" class="navbar-item">Home</router-link>
                     <router-link to="/fighters" @click.native="closeMenu" class="navbar-item">Fighters</router-link>
                     <router-link to="/events" @click.native="closeMenu" class="navbar-item">Events</router-link>
+                    <router-link to="/title-holders" @click.native="closeMenu" class="navbar-item">Title Holders</router-link>
                     <!-- <a class="navbar-item">Documentation</a>
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">More</a>

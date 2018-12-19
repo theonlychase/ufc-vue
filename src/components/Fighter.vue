@@ -11,6 +11,9 @@
             <h3 class="media_name" v-else-if="getEventFighter2">
                 Latest {{ getEventFighter2.fighter2_first_name }} {{ getEventFighter2.fighter2_last_name }} Media
             </h3>
+            <h3 class="media_name" v-else-if="getTitleHolders">
+                Latest {{ getTitleHolders.first_name }} {{ getTitleHolders.last_name }} Media
+            </h3>
             <div class="grid-container">
                 <!-- <div class="" v-for="(media,i) in fighterMedia" :key="'media' + i"> -->
                 <!-- <div class="grid-item" v-for="(media,i) in fighterMedia" :key="'media' + i">
@@ -84,6 +87,9 @@
             },
             getEventFighter2() {
                 return this.$store.getters.getEventFighter2(Number(this.id));
+            },
+            getTitleHolders() {
+                return this.$store.getters.getTitleHolders(Number(this.id));
             }
         },
         methods: {

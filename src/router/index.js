@@ -6,6 +6,7 @@ import NotFound from '../components/NotFound.vue';
 import Home from '../components/Home.vue';
 import Event from '../components/Event.vue';
 import EventsList from '../components/EventsList.vue';
+import TitleHolders from '../components/TitleHolders.vue';
 import store from '../store/index.js';
 
 Vue.use(VueRouter);
@@ -30,6 +31,7 @@ const router = new VueRouter({
                 const id = to.params.id;
                 const fighterState = store.state.fighter.fighter;
                 const fighterEventState = store.state.fights.fights;
+                const titleHoldersState = store.state.fighter.titleHolders;
                 const ids = [];
                 for (var i = 0; i < fighterState.length; i++) {
                     for (var key in fighterState[i]) {
@@ -42,6 +44,13 @@ const router = new VueRouter({
                     for (var key in fighterEventState[i]) {
                         if (fighterEventState[i][key] == id) {
                             ids.push(fighterEventState[i][key]);
+                        }
+                    }
+                }
+                for (var i = 0; i < titleHoldersState.length; i++) {
+                    for (var key in titleHoldersState[i]) {
+                        if (titleHoldersState[i][key] == id) {
+                            ids.push(titleHoldersState[i][key]);
                         }
                     }
                 }
@@ -82,6 +91,11 @@ const router = new VueRouter({
                 if (!ids.includes(Number(id))) next('/events/not-found');
                 else next();
             }
+        },
+        {
+            path: '/title-holders',
+            name: 'titleholders',
+            component: TitleHolders
         },
         {
             path: '*',

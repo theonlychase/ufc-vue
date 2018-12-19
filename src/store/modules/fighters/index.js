@@ -4,6 +4,9 @@ import _ from 'lodash';
 const state = {
     fighter: [],
     fighterMedia: [],
+    titleHolders: [],
+    mensTitleHolders: [],
+    womensTitleHolders: [],
     noResults: false,
     noMedia: false,
     loading: false,
@@ -44,6 +47,15 @@ const mutations = {
     NETWORK_ERROR (state) {
         state.loading = false;
         state.error = true;
+    },
+    ALL_TITLE_HOLDERS (state, payload) {
+        state.titleHolders = payload;
+    },
+    MENS_TITLE_HOLDERS (state, payload) {
+        state.mensTitleHolders = payload;
+    },
+    WOMENS_TITLE_HOLDERS (state, payload) {
+        state.womensTitleHolders = payload;
     }
 };
 
@@ -127,11 +139,59 @@ const actions = {
         } catch(e) {
             console.error("Error", e);
         }
+    },
+    async setTitleHolders({ commit }, data) {
+        try {
+            commit('LOADING_DATA');
+            const mens = [];
+            const womens = [];
+            const titleHolders = await axios(`https://cors-anywhere.herokuapp.com/http://ufc-data-api.ufc.com/api/v3/iphone/fighters/title_holders`);
+            const titleHolder = titleHolders.data.map((obj, index, arr) => {
+                return _.mapValues(obj, function(s) { 
+                    return _.isString(s) ? (s.length < 20 ? s.toLowerCase() : s) : s; 
+                });
+            });
+
+            for (let i = 0; i < titleHolder.length; i++) {
+                for (let key in titleHolder[i]) {
+                    if (key === "weight_class") {
+                        if (titleHolder[i][key] !== "PHOTOGALLERY") {
+                            if (_.includes(titleHolder[i][key], 'women')) {
+                                womens.push(titleHolder[i]);
+                            } else {
+                                mens.push(titleHolder[i]);
+                            }
+                        } 
+                    }
+                }
+            }
+
+            if (titleHolder.length) {
+                commit('ALL_TITLE_HOLDERS', titleHolder);
+            }
+            if (mens.length) {
+                commit('MENS_TITLE_HOLDERS', mens);
+            }
+            if (womens.length) {
+                commit('WOMENS_TITLE_HOLDERS', womens);
+            }
+            commit('DATA_LOADED');
+        } catch (e) {
+            commit('NETWORK_ERROR');
+            console.error("Error", e);
+        }
     }
 };
 
 const getters = {
     getFighters: state => state.fighter,
+    getMensTH: state => state.mensTitleHolders,
+    getWomensTH: state => state.womensTitleHolders,
+    getTitleHolders: (state) => (id) => {
+        return state.titleHolders.find((tholder) => {
+            return tholder.id === id;
+        });
+    },
     getFighter: (state) => (id) => {
         return state.fighter.find((fighter) => {
             return fighter.id === id;
