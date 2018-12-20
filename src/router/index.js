@@ -7,6 +7,7 @@ import Home from '../components/Home.vue';
 import Event from '../components/Event.vue';
 import EventsList from '../components/EventsList.vue';
 import TitleHolders from '../components/TitleHolders.vue';
+import OctagonGirlsList from '../components/OctagonGirlsList.vue';
 import store from '../store/index.js';
 
 Vue.use(VueRouter);
@@ -96,6 +97,11 @@ const router = new VueRouter({
             path: '/title-holders',
             name: 'titleholders',
             component: TitleHolders
+        },
+        {
+            path: '/octagon-girls',
+            name: 'octagongirlslist',
+            component: OctagonGirlsList
         },
         {
             path: '*',
