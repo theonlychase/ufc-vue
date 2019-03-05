@@ -1,26 +1,7 @@
-# project-two-ufc
+UFC Fighter and Event Search Engine
 
-## Project setup
-```
-npm install
-```
+Unfortunately the UFC API was removed as of 1/21/2019 -> http://ufc-data-api.ufc.com/
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+This app was built with Vue, Vue Router, Vuex for state management and the Bulma CSS Framework
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
+The app is currently hosted with Netlify, but does not function since the API is down -> https://objective-euclid-52ac45.netlify.com/
